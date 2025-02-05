@@ -37,7 +37,7 @@ class Classroom(models.Model):
         return self.classroom
 
 class ProfessorAvailability(models.Model):
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, blank=True, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     available = models.ForeignKey(Day, on_delete=models.CASCADE)
     hour = models.ForeignKey(Hour, on_delete=models.CASCADE)
@@ -45,6 +45,6 @@ class ProfessorAvailability(models.Model):
     classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
 
     def __str__(self):
-
-        return f"{self.professor.professor} - {self.subject.subject} ({self.available.day}, {self.hour.hour}H)"
+        professor_name = self.professor.professor if self.professor else "No Professor"
+        return f"{professor_name} - {self.subject.subject} ({self.available.day}, {self.hour.hour}H)"
         # return self.professor
