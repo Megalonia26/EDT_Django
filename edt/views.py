@@ -1,5 +1,13 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import Edt
+
 def index(request):
-    return render(request, 'edt/index.html')
+
+    timetable = Edt.objects.all()
+
+    context = {
+        'timetable': timetable
+    }
+
+    return render(request, 'edt/index.html', context)

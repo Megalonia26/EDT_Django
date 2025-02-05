@@ -10,7 +10,7 @@ class Hour(models.Model):
     hour = models.CharField(max_length=2)
 
     def __str__(self):
-        return self.hour
+        return str(self.hour)
 
 class To(models.Model):
     to = models.CharField(max_length=2)
@@ -36,7 +36,7 @@ class Classroom(models.Model):
     def __str__(self):
         return self.classroom
 
-class ProfessorAvailability(models.Model):
+class Edt(models.Model):
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE, blank=True, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     available = models.ForeignKey(Day, on_delete=models.CASCADE)
@@ -46,5 +46,4 @@ class ProfessorAvailability(models.Model):
 
     def __str__(self):
         professor_name = self.professor.professor if self.professor else "No Professor"
-        return f"{professor_name} - {self.subject.subject} ({self.available.day}, {self.hour.hour}H)"
-        # return self.professor
+        return f"{professor_name} - {self.subject.subject} ({self.available.day}, {self.hour.hour}H To {self.to.to}H)"
